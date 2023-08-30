@@ -1,7 +1,9 @@
+import threading
+from asyncio import iscoroutinefunction, run, sleep
+
 from ..app import Application
 from ..errors import SquareException
-from asyncio import sleep, iscoroutinefunction, run
-import threading
+
 
 class LogsLoop:
     def __init__(self, app: Application, callback: callable, cooldown: int) -> None:
@@ -11,6 +13,7 @@ class LogsLoop:
     
     async def _loop(self):
         old_logs = ""
+        print('[LOGS LOOP] Started!')
         while True:
             new_logs = await self.app.logs()
             if new_logs != old_logs:
@@ -22,7 +25,6 @@ class LogsLoop:
         thread = threading.Thread(target=lambda: run(self._loop()))
         thread.daemon = True
         thread.start()
-        print('[LOGS LOOP] Started!')
         
 class Logs:
     
