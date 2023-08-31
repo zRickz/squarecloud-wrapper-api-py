@@ -4,11 +4,15 @@ NOTE: For now, these functions just works for backups and logs.
 
 import threading
 from asyncio import iscoroutinefunction, run, sleep
+from typing import Union
 
 from ..app import Application, LogsData
 from ..errors import SquareException
 
-from typing import Union
+_cooldown_min = {
+    'logs': 15,
+    'backups': 60
+}
 
 class LogsLoop:
     def __init__(self, app: Application, callback: callable, cooldown: int) -> None:
@@ -53,11 +57,6 @@ class BackupsLoop:
         thread.daemon = True
         thread.start()
 
-_cooldown_min = {
-    'logs': 15,
-    'backups': 60
-}
-
 class Loop:
     def __init__(self, loop_type: str,  app: Application, callback: callable, cooldown: int = 15, as_thread=True):
         """
@@ -86,7 +85,7 @@ class Loop:
         if self.cooldown < self.minimum_cooldown:
             return SquareException(f"Cooldown must be greater than {self._minimum_cooldown} seconds")
     
-    async def start(self):
+    async def start(self) -> callable:
         match(self.loop_type):
             case 'logs':
                 loop = LogsLoop(self.app, self.callback, self.cooldown)
