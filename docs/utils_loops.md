@@ -1,3 +1,5 @@
+By [@Mudinho](https://github.com/zRickz)
+
 # Example
 
 ```python
