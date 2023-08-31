@@ -12,8 +12,8 @@ async def callbackFunction(logsData, app_id):
 
 async def main():
     my_app = await client.app('<YOUR_APP_ID>') # Get your app object
-    BackupLoop = Loop('<YOUR_LOOP_TYPE>', my_app, callbackFunction) # Create a Loop Manager
-    await BackupLoop.start() # Start the loop
+    LoopManager = Loop('<YOUR_LOOP_TYPE>', my_app, callbackFunction) # Create a Loop Manager
+    await LoopManager.start() # Start the loop
 ```
 
 ## Loop Class Arguments
