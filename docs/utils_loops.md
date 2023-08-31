@@ -21,5 +21,5 @@ async def main():
 - **loop_type**: The type of your loop [Available: 'logs' or 'backups']
 - **app**: The application object of the app you want to use for this loop
 - **callback**: The callback function to be called when new data is available
-- [OPTIONAL] **Cooldown**: The number of seconds to wait per iteration. Default is relative to the current loop type.
+- [OPTIONAL] **cooldown**: The number of seconds to wait per iteration. Default is relative to the current loop type.
 - [OPTIONAL] **as_thread**: True if you want to use as a thread, false otherwise. Defaults is True.
